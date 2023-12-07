@@ -10,6 +10,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  MODERATOR
+  MASTER
+  ASSISTANT
+  PLAYER
+}
+
 model Profile {
   id               String   @id @default(uuid()) @db.Uuid
   name             String
@@ -37,6 +45,7 @@ model User {
   email    String   @unique @db.VarChar(32)
   password String   @db.VarChar(255)
   profile  Profile?
+  role     Role
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
