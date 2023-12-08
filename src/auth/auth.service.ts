@@ -35,15 +35,15 @@ export class AuthService {
 
       let message = '';
       if (words.length > 1) {
-        message = words.join(' and ').concat('already in use');
+        message = words.join(' and ');
       } else {
         message = words[0];
       }
-      throw new ConflictException(message);
+      throw new ConflictException(message.concat(' already in use'));
     }
     signUpDto.password = bcrypt.hashSync(password, SALT);
 
-    return /*await*/ this.usersService.create(signUpDto);
+    return this.usersService.create(signUpDto);
   }
 
   async signIn(signInDto: SignInDto) {

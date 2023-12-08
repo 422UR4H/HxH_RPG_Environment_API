@@ -24,8 +24,8 @@ export class UsersRepository {
   }
 
   findByNickOrEmail(nick: string, email: string) {
-    return this.prisma.user.findUnique({
-      where: { nick_email: { nick, email } },
+    return this.prisma.user.findFirst({
+      where: { OR: [{ nick }, { email }] },
     });
   }
 

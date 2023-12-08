@@ -45,7 +45,7 @@ model User {
   email    String   @unique @db.VarChar(32)
   password String   @db.VarChar(255)
   profile  Profile?
-  role     Role
+  role     Role     @default(PLAYER)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
