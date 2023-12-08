@@ -5,15 +5,18 @@ import {
   IsNotEmpty,
   IsString,
   IsStrongPassword,
+  MaxLength,
 } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
+  @MaxLength(12)
   nick: string;
 
   @IsEmail()
   @IsNotEmpty()
+  @MaxLength(32)
   email: string;
 
   @IsStrongPassword({
@@ -26,6 +29,7 @@ export class CreateUserDto {
     minSymbols: 0,
   })
   @IsNotEmpty()
+  @MaxLength(32)
   password: string;
 
   @IsEnum(Role)
