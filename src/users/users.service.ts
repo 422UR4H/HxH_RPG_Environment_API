@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepository } from './users.repository';
@@ -15,12 +15,15 @@ export class UsersService {
     return new OutputUserDto(user);
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll(): Promise<OutputUserDto[]> {
+    const user = await this.usersRepository.findAll();
+    return user.map((u) => new OutputUserDto(u));
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string): Promise<OutputUserDto> {
+    const user = await this.usersRepository.findOne(id);
+    if (!user) throw new NotFoundException('User not found');
+    return new OutputUserDto(user);
   }
 
   // FIXME: not found must protected because passwords are sent
