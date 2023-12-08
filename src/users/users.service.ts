@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepository } from './users.repository';
+import { OutputUserDto } from './dto/output-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -10,7 +11,8 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     // const { nick, email, password, role } = createUserDto;
     // const user = new User(nick, email, password, role);
-    return this.usersRepository.create(createUserDto);
+    const user = await this.usersRepository.create(createUserDto);
+    return new OutputUserDto(user);
   }
 
   findAll() {

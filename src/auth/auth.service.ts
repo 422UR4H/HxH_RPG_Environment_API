@@ -24,7 +24,7 @@ export class AuthService {
     private readonly usersService: UsersService,
   ) {}
 
-  async signUp(signUpDto: SignUpDto) {
+  async signUp(signUpDto: SignUpDto): Promise<OutputUserDto> {
     const { nick, email, password } = signUpDto;
     const user = await this.usersService.findByNickOrEmail(nick, email);
 
