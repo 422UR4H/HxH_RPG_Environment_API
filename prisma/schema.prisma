@@ -52,6 +52,7 @@ model User {
 
   character Character[]
 
+  @@unique([nick, email])
   @@map("users")
 }
 
