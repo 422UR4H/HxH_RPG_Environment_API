@@ -34,6 +34,6 @@ export class UsersRepository {
   }
 
   remove(id: string) {
-    return `This action removes a #${id} user`;
+    return this.prisma.user.delete({ where: { id } });
   }
 }

@@ -42,11 +42,12 @@ export class UsersService {
     return user;
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} user`;
+  async remove(id: string): Promise<OutputUserDto> {
+    const user = await this.usersRepository.remove(id);
+    return new OutputUserDto(user);
   }
 }
