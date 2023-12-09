@@ -29,7 +29,7 @@ export class ProfileRepository {
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} profile`;
+    return this.prisma.profile.findUnique({ where: { id } });
   }
 
   update(id: string, updateProfileDto: UpdateProfileDto) {
