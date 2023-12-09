@@ -14,8 +14,8 @@ import { Role } from '@prisma/client';
 export class ProfileService {
   constructor(private readonly profilesRepository: ProfileRepository) {}
 
-  create(createProfileDto: CreateProfileDto, userId: string) {
-    const profile = this.profilesRepository.findByUserId(userId);
+  async create(createProfileDto: CreateProfileDto, userId: string) {
+    const profile = await this.profilesRepository.findByUserId(userId);
     if (!!profile) throw new ConflictException('Profile already exists');
 
     const {
