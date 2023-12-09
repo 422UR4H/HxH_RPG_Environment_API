@@ -41,7 +41,7 @@ export class CharactersRepository {
   }
 
   findAll() {
-    return `This action returns all characters`;
+    return this.prisma.character.findMany();
   }
 
   findOne(id: string) {
