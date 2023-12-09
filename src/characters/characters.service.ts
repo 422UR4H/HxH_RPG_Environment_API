@@ -55,30 +55,8 @@ export class CharactersService {
   }
 
   async findOne(characterId: string, userId: string, role: Role) {
-    let character: Character;
-    switch (role) {
-      case Role.ADMIN:
-        // TODO:
-        break;
-      case Role.MODERATOR:
-        // TODO:
-        break;
-      case Role.MASTER:
-        // TODO: verify if the char belongs to your campaign
-        break;
-      case Role.ASSISTANT:
-        // TODO:
-        break;
-      case Role.PLAYER:
-        const character = await this.charactersRepository.findOne(characterId);
-        if (character.userId !== userId) {
-          throw new UnauthorizedException('Access Denied!');
-        }
-        break;
-      default:
-        throw new UnauthorizedException('Access Denied!');
-    }
-    return `This action returns a #${characterId} character`;
+    let character = await this.charactersRepository.findOne(characterId);
+
   }
 
   update(id: string, updateCharacterDto: UpdateCharacterDto) {
@@ -87,5 +65,29 @@ export class CharactersService {
 
   remove(id: string) {
     return `This action removes a #${id} character`;
+  }
+
+  private checkRole(character: Character, userId: string, role: Role) {
+    switch (role) {
+      case Role.ADMIN:
+        return character;
+      case Role.MODERATOR:
+        // TODO: verify if the char belongs to your cenary
+        return character;
+      case Role.MASTER:
+        // TODO: verify if the char belongs to your campaign
+        return character;
+      case Role.ASSISTANT:
+        // TODO: verify if the char belongs to your campaign
+        return character;
+      case Role.PLAYER:
+        // TODO: implements verify
+        if (character.userId !== userId) {
+          throw new UnauthorizedException('Access Denied!');
+        }
+        return character;
+      default:
+        throw new UnauthorizedException('Access Denied!');
+    }
   }
 }
