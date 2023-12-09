@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileRepository } from './profile.repository';
@@ -11,6 +15,9 @@ export class ProfileService {
   constructor(private readonly profilesRepository: ProfileRepository) {}
 
   create(createProfileDto: CreateProfileDto, userId: string) {
+    const profile = this.profilesRepository.findByUserId(userId);
+    if (!!profile) throw new ConflictException('Profile already exists');
+
     const {
       name,
       birthday,
@@ -20,7 +27,7 @@ export class ProfileService {
       backgroundImgUrl,
     } = createProfileDto;
 
-    const profile = new Profile(
+    const newProfile = new Profile(
       name,
       description,
       briefDescription,
@@ -28,7 +35,7 @@ export class ProfileService {
       avatarUrl,
       backgroundImgUrl,
     );
-    return this.profilesRepository.create(profile, userId);
+    return this.profilesRepository.create(newProfile, userId);
   }
 
   findAll() {
@@ -37,7 +44,7 @@ export class ProfileService {
 
   async findOne(profileId: string, userId: string, role: Role) {
     const profile = await this.profilesRepository.findOne(profileId);
-    return this.checkRole(profile, userId, role)
+    return this.checkRole(profile, userId, role);
   }
 
   update(id: string, updateProfileDto: UpdateProfileDto) {

@@ -32,6 +32,10 @@ export class ProfileRepository {
     return this.prisma.profile.findUnique({ where: { id } });
   }
 
+  findByUserId(userId: string) {
+    return this.prisma.profile.findUnique({ where: { userId } });
+  }
+
   update(id: string, updateProfileDto: UpdateProfileDto) {
     return `This action updates a #${id} profile`;
   }
