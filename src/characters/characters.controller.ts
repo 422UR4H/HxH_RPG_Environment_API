@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { CharactersService } from './characters.service';
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { UpdateCharacterDto } from './dto/update-character.dto';
@@ -13,7 +22,10 @@ export class CharactersController {
 
   @Post()
   @UseGuards(AuthGuard)
-  create(@Body() createCharacterDto: CreateCharacterDto, @User() user: UserType) {
+  create(
+    @Body() createCharacterDto: CreateCharacterDto,
+    @User() user: UserType,
+  ) {
     return this.charactersService.create(createCharacterDto, user.id);
   }
 
@@ -23,15 +35,24 @@ export class CharactersController {
     return this.charactersService.findAll();
   }
 
+  @Get()
+  @UseGuards(AdminGuard)
+  findAllWithProfile() {
+    return this.charactersService.findAllWithProfile();
+  }
+
   @Get(':id')
   @UseGuards(AuthGuard)
-  findOne(@Param('id') id: string) {
-    return this.charactersService.findOne(id);
+  findOne(@Param('id') id: string, @User() user: UserType) {
+    return this.charactersService.findOne(id, user.id, user.role);
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard)
-  update(@Param('id') id: string, @Body() updateCharacterDto: UpdateCharacterDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateCharacterDto: UpdateCharacterDto,
+  ) {
     return this.charactersService.update(id, updateCharacterDto);
   }
 

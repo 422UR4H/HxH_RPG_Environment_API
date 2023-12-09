@@ -44,8 +44,12 @@ export class CharactersRepository {
     return this.prisma.character.findMany();
   }
 
+  findAllWithProfile() {
+    return this.prisma.character.findMany({ include: { profile: true } });
+  }
+
   findOne(id: string) {
-    return `This action returns a #${id} character`;
+    return this.prisma.character.findUnique({ where: { id } });
   }
 
   findByNick(nick: string) {
