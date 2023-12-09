@@ -24,7 +24,8 @@ export class ProfileRepository {
   }
 
   findAll() {
-    return `This action returns all profile`;
+    // TODO: pagination this
+    return this.prisma.profile.findMany();
   }
 
   findOne(id: string) {
