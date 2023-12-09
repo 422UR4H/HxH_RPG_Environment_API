@@ -19,6 +19,13 @@ export class UsersRepository {
     return this.prisma.user.findUnique({ where: { id } });
   }
 
+  findWithProfile(id: string) {
+    return this.prisma.user.findUnique({
+      where: { id },
+      include: { profile: true },
+    });
+  }
+
   findByEmail(email: string) {
     return this.prisma.user.findUnique({ where: { email } });
   }

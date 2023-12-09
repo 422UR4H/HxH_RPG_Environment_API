@@ -1,8 +1,18 @@
-import { Controller, Get, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { AdminGuard } from 'src/guards/admin.guard';
+import { User as UserType } from '@prisma/client';
+import { User } from 'src/decorators/user.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -12,6 +22,12 @@ export class UsersController {
   @UseGuards(AdminGuard)
   findAll() {
     return this.usersService.findAll();
+  }
+
+  @Get('profiles')
+  @UseGuards(AuthGuard)
+  findWithProfile(@User() user: UserType) {
+    return this.usersService.findWithProfile(user.id);
   }
 
   @Get(':id')

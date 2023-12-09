@@ -1,5 +1,6 @@
 import { $Enums } from '@prisma/client';
 import IUser from './user.interface';
+import IProfile from 'src/profile/entities/profile.interface';
 
 export class User implements IUser {
   private _id: string;
@@ -9,17 +10,23 @@ export class User implements IUser {
   private _role: $Enums.Role;
   private _created_at: Date;
   private _updated_at: Date;
+  private _profile?: IProfile;
 
   constructor(
     nick: string,
     email: string,
     password: string,
     role: $Enums.Role,
+    profile: IProfile,
   ) {
     this._nick = nick;
     this._email = email;
     this._password = password;
     this._role = role;
+
+    if (!!profile) {
+      this._profile = profile;
+    }
   }
 
   get id(): string {
@@ -42,5 +49,8 @@ export class User implements IUser {
   }
   get updated_at(): Date {
     return this._updated_at;
+  }
+  get profile(): IProfile {
+    return this._profile;
   }
 }

@@ -26,6 +26,12 @@ export class UsersService {
     return new OutputUserDto(user);
   }
 
+  async findWithProfile(id: string): Promise<OutputUserDto> {
+    const result = await this.usersRepository.findWithProfile(id);
+    if (!result) throw new NotFoundException('User not found');
+    return new OutputUserDto(result);
+  }
+
   // FIXME: not found must protected because passwords are sent
   async findByEmail(email: string) {
     const user = await this.usersRepository.findByEmail(email);
