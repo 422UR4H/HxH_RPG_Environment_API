@@ -19,7 +19,7 @@ enum Role {
 }
 
 model Profile {
-  id               String   @id @default(uuid()) @db.Uuid
+  id               String   @id @default(uuid())
   name             String   @db.VarChar(32)
   description      String?  @db.VarChar(255)
   briefDescription String?  @db.VarChar(64)
@@ -30,17 +30,17 @@ model Profile {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  userId      String @unique @db.Uuid
-  characterId String @unique @db.Uuid
+  userId      String? @unique
+  characterId String? @unique
 
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  character Character @relation(fields: [characterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user      User?      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  character Character? @relation(fields: [characterId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("profiles")
 }
 
 model User {
-  id       String   @id @default(uuid()) @db.Uuid
+  id       String   @id @default(uuid())
   nick     String   @unique @db.VarChar(12)
   email    String   @unique @db.VarChar(32)
   password String   @db.VarChar(255)
@@ -57,7 +57,7 @@ model User {
 }
 
 model Character {
-  id      String   @id @default(uuid()) @db.Uuid
+  id      String   @id @default(uuid())
   nick    String   @unique @db.VarChar(12)
   exp     Int      @default(0)
   profile Profile?
@@ -65,7 +65,7 @@ model Character {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  userId String @db.Uuid
+  userId String @unique
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
