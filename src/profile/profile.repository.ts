@@ -39,8 +39,4 @@ export class ProfileRepository {
   update(id: string, updateProfileDto: UpdateProfileDto) {
     return `This action updates a #${id} profile`;
   }
-
-  remove(id: string) {
-    return `This action removes a #${id} profile`;
-  }
 }

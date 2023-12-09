@@ -51,10 +51,6 @@ export class ProfileService {
     return `This action updates a #${id} profile`;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} profile`;
-  }
-
   private checkRole(profile: ProfileType, userId: string, role: Role) {
     switch (role) {
       case Role.ADMIN:
