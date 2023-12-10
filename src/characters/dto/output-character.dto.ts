@@ -22,6 +22,7 @@ export class OutputCharacterDto {
     profile?: IProfile,
   ) {
     this.id = character.id;
+    this.userId = character.userId;
     this.nick = character.nick;
     this.exp = character.exp;
     this.created_at = character.created_at;
