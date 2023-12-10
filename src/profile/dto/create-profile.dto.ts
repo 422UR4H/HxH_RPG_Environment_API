@@ -2,7 +2,6 @@ import {
   IsDateString,
   IsNotEmpty,
   IsString,
-  IsUUID,
   MaxLength,
 } from 'class-validator';
 
@@ -35,8 +34,4 @@ export class CreateProfileDto {
   @IsNotEmpty()
   @MaxLength(510)
   backgroundImgUrl: string;
-
-  // @IsUUID()
-  // @IsNotEmpty()
-  // userId: string;
 }
