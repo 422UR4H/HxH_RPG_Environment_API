@@ -65,7 +65,8 @@ export class CharactersService {
 
     delete character.profile.userId;
     delete character.profile.characterId;
-    return this.checkRole(character, userId, role);
+    const outputCharacterDto = new OutputCharacterDto(character);
+    return this.checkRole(outputCharacterDto, userId, role);
   }
 
   update(id: string, updateCharacterDto: UpdateCharacterDto) {
@@ -76,7 +77,7 @@ export class CharactersService {
     return `This action removes a #${id} character`;
   }
 
-  private checkRole(character: CharacterType, userId: string, role: Role) {
+  private checkRole(character: OutputCharacterDto, userId: string, role: Role) {
     switch (role) {
       case Role.ADMIN:
         return character;
@@ -92,6 +93,8 @@ export class CharactersService {
       case Role.PLAYER:
         // TODO: implements verify
         if (character.userId !== userId) {
+          console.log(character.userId)
+          console.log(userId)
           throw new UnauthorizedException('Access Denied!');
         }
         return character;
