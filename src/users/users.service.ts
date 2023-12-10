@@ -29,6 +29,9 @@ export class UsersService {
   async findWithProfile(id: string): Promise<OutputUserDto> {
     const result = await this.usersRepository.findWithProfile(id);
     if (!result) throw new NotFoundException('User not found');
+
+    delete result.profile.userId;
+    delete result.profile.characterId;
     return new OutputUserDto(result);
   }
 
