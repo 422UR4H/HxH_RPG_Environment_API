@@ -27,7 +27,6 @@ export class CharactersRepository {
     const profile = this.prisma.profile.create({
       data: {
         characterId: id,
-        userId,
         name,
         description,
         briefDescription,
@@ -49,7 +48,10 @@ export class CharactersRepository {
   }
 
   findOne(id: string) {
-    return this.prisma.character.findUnique({ where: { id } });
+    return this.prisma.character.findUnique({
+      where: { id },
+      include: { profile: true },
+    });
   }
 
   findByNick(nick: string) {

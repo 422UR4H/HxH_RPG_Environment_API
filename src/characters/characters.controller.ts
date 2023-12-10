@@ -35,7 +35,7 @@ export class CharactersController {
     return this.charactersService.findAll();
   }
 
-  @Get()
+  @Get('profiles')
   @UseGuards(AdminGuard)
   findAllWithProfile() {
     return this.charactersService.findAllWithProfile();

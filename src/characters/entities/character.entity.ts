@@ -1,3 +1,4 @@
+import IProfile from 'src/profile/entities/profile.interface';
 import ICharacter from './character.interface';
 import { v4 as uuid } from 'uuid';
 
@@ -14,6 +15,7 @@ export class Character implements ICharacter {
   private _backgroundImgUrl: string;
   private _created_at: Date;
   private _updated_at: Date;
+  private _profile?: IProfile;
 
   constructor(
     userId: string,
@@ -25,6 +27,7 @@ export class Character implements ICharacter {
     avatarUrl: string,
     backgroundImgUrl: string,
     id?: string,
+    profile?: IProfile,
     exp?: number,
   ) {
     this._id = id;
@@ -37,6 +40,7 @@ export class Character implements ICharacter {
     this._birthday = birthday;
     this._avatarUrl = avatarUrl;
     this._backgroundImgUrl = backgroundImgUrl;
+    this._profile = profile;
   }
 
   get id(): string {
@@ -74,6 +78,9 @@ export class Character implements ICharacter {
   }
   get updated_at(): Date {
     return this._updated_at;
+  }
+  get profile(): IProfile {
+    return this._profile;
   }
 
   attributeTest(): number {

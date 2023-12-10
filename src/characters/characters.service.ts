@@ -2,6 +2,7 @@ import { v4 as uuid } from 'uuid';
 import {
   ConflictException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { CreateCharacterDto } from './dto/create-character.dto';
@@ -9,6 +10,7 @@ import { UpdateCharacterDto } from './dto/update-character.dto';
 import { Character } from './entities/character.entity';
 import { CharactersRepository } from './characters.repository';
 import { Role } from '@prisma/client';
+import { Character as CharacterType } from '@prisma/client';
 
 @Injectable()
 export class CharactersService {
@@ -28,7 +30,6 @@ export class CharactersService {
     const result = await this.charactersRepository.findByNick(nick);
     if (!!result) throw new ConflictException('Nick already in use');
 
-    // gerar char id
     const characterId = uuid();
     const formattedBirthday = new Date(birthday);
 
@@ -56,7 +57,11 @@ export class CharactersService {
 
   async findOne(characterId: string, userId: string, role: Role) {
     let character = await this.charactersRepository.findOne(characterId);
+    if (!character) throw new NotFoundException('Character not found');
 
+    delete character.profile.userId;
+    delete character.profile.characterId;
+    return this.checkRole(character, userId, role);
   }
 
   update(id: string, updateCharacterDto: UpdateCharacterDto) {
@@ -67,7 +72,7 @@ export class CharactersService {
     return `This action removes a #${id} character`;
   }
 
-  private checkRole(character: Character, userId: string, role: Role) {
+  private checkRole(character: CharacterType, userId: string, role: Role) {
     switch (role) {
       case Role.ADMIN:
         return character;
