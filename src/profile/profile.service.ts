@@ -1,14 +1,15 @@
 import {
   ConflictException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfileRepository } from './profile.repository';
-import { Profile as ProfileType } from '@prisma/client';
 import { Profile } from './entities/profile.entity';
 import { Role } from '@prisma/client';
+import OutputProfileDto from './dto/output-profile.dto';
 
 @Injectable()
 export class ProfileService {
@@ -35,23 +36,26 @@ export class ProfileService {
       avatarUrl,
       backgroundImgUrl,
     );
-    return this.profilesRepository.create(newProfile, userId);
+    const result = await this.profilesRepository.create(newProfile, userId);
+    return new OutputProfileDto(result);
   }
 
-  findAll() {
-    return this.profilesRepository.findAll();
+  async findAll() {
+    const result = await this.profilesRepository.findAll();
+    return result.map((profile) => new OutputProfileDto(profile));
   }
 
   async findOne(profileId: string, userId: string, role: Role) {
     const profile = await this.profilesRepository.findOne(profileId);
-    return this.checkRole(profile, userId, role);
+    if (!profile) throw new NotFoundException('Profile not found');
+    return this.checkRole(new OutputProfileDto(profile), userId, role);
   }
 
   update(id: string, updateProfileDto: UpdateProfileDto) {
     return `This action updates a #${id} profile`;
   }
 
-  private checkRole(profile: ProfileType, userId: string, role: Role) {
+  private checkRole(profile: OutputProfileDto, userId: string, role: Role) {
     switch (role) {
       case Role.ADMIN:
         return profile;
@@ -66,7 +70,7 @@ export class ProfileService {
         return profile;
       case Role.PLAYER:
         // TODO: improve verify
-        if (profile.userId !== userId) {
+        if (profile?.userId !== userId) {
           throw new UnauthorizedException('Access Denied!');
         }
         return profile;

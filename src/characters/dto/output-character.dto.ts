@@ -1,5 +1,5 @@
 import { Character } from '@prisma/client';
-import { OutputProfileDto } from 'src/profile/dto/output-profile.dto';
+import { OutputProfileType } from 'src/profile/dto/output-profile.dto';
 import { dateFormat } from 'src/utils/dateFormat.utils';
 import ICharacter from '../entities/character.interface';
 import IProfile from 'src/profile/entities/profile.interface';
@@ -14,7 +14,7 @@ export class OutputCharacterDto {
   nick: string;
   created_at: Date;
   updated_at: Date;
-  profile: OutputProfileDto;
+  profile: OutputProfileType;
   exp?: number;
 
   constructor(
