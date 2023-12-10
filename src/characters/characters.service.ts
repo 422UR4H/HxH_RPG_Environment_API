@@ -11,6 +11,7 @@ import { Character } from './entities/character.entity';
 import { CharactersRepository } from './characters.repository';
 import { Role } from '@prisma/client';
 import { Character as CharacterType } from '@prisma/client';
+import { OutputCharacterDto } from './dto/output-character.dto';
 
 @Injectable()
 export class CharactersService {
@@ -44,7 +45,8 @@ export class CharactersService {
       backgroundImgUrl,
       characterId,
     );
-    return this.charactersRepository.create(character);
+    const [user, profile] = await this.charactersRepository.create(character);
+    return new OutputCharacterDto(user, profile);
   }
 
   findAll() {

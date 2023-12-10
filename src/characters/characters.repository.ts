@@ -8,7 +8,7 @@ export class CharactersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   // TODO: type this
-  async create(character: Character) {
+  create(character: Character) {
     const {
       id,
       userId,
@@ -35,8 +35,7 @@ export class CharactersRepository {
         backgroundImgUrl,
       },
     });
-    const result = await this.prisma.$transaction([newCharacter, profile]);
-    return result;
+    return this.prisma.$transaction([newCharacter, profile]);
   }
 
   findAll() {
