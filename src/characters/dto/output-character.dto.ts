@@ -1,8 +1,8 @@
 import { Character } from '@prisma/client';
-import { OutputProfileType } from 'src/profile/dto/output-profile.dto';
-import { dateFormat } from 'src/utils/dateFormat.utils';
+import { OutputProfileType } from '../../../src/profile/dto/output-profile.dto';
+import { dateFormat } from '../../../src/utils/dateFormat.utils';
 import ICharacter from '../entities/character.interface';
-import IProfile from 'src/profile/entities/profile.interface';
+import IProfile from '../../../src/profile/entities/profile.interface';
 
 type CharacterWithProfile = Character & {
   profile: IProfile;

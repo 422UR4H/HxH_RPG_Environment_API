@@ -9,10 +9,10 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { AdminGuard } from 'src/guards/admin.guard';
+import { AuthGuard } from '../../src/guards/auth.guard';
+import { AdminGuard } from '../../src/guards/admin.guard';
 import { User as UserType } from '@prisma/client';
-import { User } from 'src/decorators/user.decorator';
+import { User } from '../../src/decorators/user.decorator';
 
 @Controller('users')
 export class UsersController {

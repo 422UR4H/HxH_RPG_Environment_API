@@ -1,6 +1,6 @@
 import { Profile } from '@prisma/client';
 import { PartialProfile } from '../entities/profile.interface';
-import { dateFormat } from 'src/utils/dateFormat.utils';
+import { dateFormat } from '../../../src/utils/dateFormat.utils';
 
 export type OutputProfileType = Omit<PartialProfile, 'birthday'> & {
   birthday: string | Date;

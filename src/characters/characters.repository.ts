@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateCharacterDto } from './dto/update-character.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 import { Character } from './entities/character.entity';
 
 @Injectable()
