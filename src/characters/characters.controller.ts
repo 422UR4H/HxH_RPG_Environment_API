@@ -47,6 +47,13 @@ export class CharactersController {
     return this.charactersService.findOne(id, user.id, user.role);
   }
 
+  @Get(':id/attribute-test')
+  @UseGuards(AuthGuard)
+  attributeTest(@Param('id') id: string) {
+    return this.charactersService.attributeTest(id);
+  }
+  // @Param('dice') dice: number
+
   @Patch(':id')
   @UseGuards(AuthGuard)
   update(

@@ -1,6 +1,6 @@
 import IProfile from 'src/profile/entities/profile.interface';
 import ICharacter from './character.interface';
-import { v4 as uuid } from 'uuid';
+import { Dice } from 'src/domain/dice/dice';
 
 export class Character implements ICharacter {
   private _id: string;
@@ -84,8 +84,6 @@ export class Character implements ICharacter {
   }
 
   attributeTest(): number {
-    const hash = uuid();
-    const numeros = uuid.replace(/\D/g, '');
-    return numeros;
+    return Dice.roll(20);
   };
 }

@@ -1,6 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import {
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -60,13 +61,31 @@ export class CharactersService {
   }
 
   async findOne(characterId: string, userId: string, role: Role) {
-    let character = await this.charactersRepository.findOne(characterId);
+    const character = await this.charactersRepository.findOne(characterId);
     if (!character) throw new NotFoundException('Character not found');
 
     delete character.profile.userId;
     delete character.profile.characterId;
     const outputCharacterDto = new OutputCharacterDto(character);
     return this.checkRole(outputCharacterDto, userId, role);
+  }
+
+  async attributeTest(id: string): Promise<number> {
+    const result = await this.charactersRepository.findOne(id);
+    if (!result.profile) {
+      throw new ForbiddenException('Character profile not found');
+    }
+    const character = new Character(
+      result.userId,
+      result.nick,
+      result.profile.name,
+      result.profile.description,
+      result.profile.briefDescription,
+      result.profile.birthday,
+      result.profile.avatarUrl,
+      result.profile.backgroundImgUrl,
+    );
+    return character.attributeTest();
   }
 
   update(id: string, updateCharacterDto: UpdateCharacterDto) {
@@ -93,8 +112,8 @@ export class CharactersService {
       case Role.PLAYER:
         // TODO: implements verify
         if (character.userId !== userId) {
-          console.log(character.userId)
-          console.log(userId)
+          console.log(character.userId);
+          console.log(userId);
           throw new UnauthorizedException('Access Denied!');
         }
         return character;
