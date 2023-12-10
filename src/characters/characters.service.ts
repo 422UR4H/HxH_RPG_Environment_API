@@ -12,6 +12,7 @@ import { CharactersRepository } from './characters.repository';
 import { Role } from '@prisma/client';
 import { Character as CharacterType } from '@prisma/client';
 import { OutputCharacterDto } from './dto/output-character.dto';
+import ICharacter from './entities/character.interface';
 
 @Injectable()
 export class CharactersService {
@@ -46,15 +47,16 @@ export class CharactersService {
       characterId,
     );
     const [user, profile] = await this.charactersRepository.create(character);
-    return new OutputCharacterDto(user, profile);
+    return new OutputCharacterDto(user as ICharacter, profile);
   }
 
   findAll() {
     return this.charactersRepository.findAll();
   }
 
-  findAllWithProfile() {
-    return this.charactersRepository.findAllWithProfile();
+  async findAllWithProfile() {
+    const result = await this.charactersRepository.findAllWithProfile();
+    return result.map((char) => new OutputCharacterDto(char));
   }
 
   async findOne(characterId: string, userId: string, role: Role) {

@@ -1,7 +1,12 @@
 import { Character } from '@prisma/client';
 import { OutputProfileDto } from 'src/profile/dto/output-profile.dto';
-import IProfile from 'src/profile/entities/profile.interface';
 import { dateFormat } from 'src/utils/dateFormat.utils';
+import ICharacter from '../entities/character.interface';
+import IProfile from 'src/profile/entities/profile.interface';
+
+type CharacterWithProfile = Character & {
+  profile: IProfile;
+};
 
 export class OutputCharacterDto {
   id: string;
@@ -12,13 +17,20 @@ export class OutputCharacterDto {
   profile: OutputProfileDto;
   exp?: number;
 
-  constructor(character: Character, profile: IProfile) {
+  constructor(
+    character: CharacterWithProfile | ICharacter,
+    profile?: IProfile,
+  ) {
     this.id = character.id;
     this.nick = character.nick;
     this.exp = character.exp;
     this.created_at = character.created_at;
     this.updated_at = character.updated_at;
-    this.profile = profile;
-    this.profile.birthday = dateFormat(this.profile.birthday)
+
+    const prof = profile || character?.profile;
+    if (!!prof) {
+      this.profile = prof;
+      this.profile.birthday = dateFormat(prof.birthday);
+    }
   }
 }
