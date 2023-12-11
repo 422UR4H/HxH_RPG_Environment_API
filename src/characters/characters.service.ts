@@ -111,8 +111,6 @@ export class CharactersService {
       case Role.PLAYER:
         // TODO: implements verify
         if (character.userId !== userId) {
-          console.log(character.userId);
-          console.log(userId);
           throw new UnauthorizedException('Access Denied!');
         }
         return character;
