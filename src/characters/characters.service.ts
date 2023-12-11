@@ -69,7 +69,7 @@ export class CharactersService {
 
   async attributeTest(id: string): Promise<number> {
     const result = await this.charactersRepository.findOne(id);
-    if (!result.profile) {
+    if (!result?.profile) {
       throw new ForbiddenException('Character profile not found');
     }
     const character = new Character(
