@@ -35,20 +35,12 @@ export class UsersService {
     return new OutputUserDto(result);
   }
 
-  // FIXME: not found must protected because passwords are sent
-  async findByEmail(email: string) {
-    const user = await this.usersRepository.findByEmail(email);
-    // TODO: verify validator here
-    // if (!user) {
-    //   throw new NotFoundException();
-    // }
-    return user;
+  findUserWithPasswordByEmail(email: string) {
+    return this.usersRepository.findByEmail(email);
   }
 
-  // FIXME: not found must protected because passwords are sent
-  async findByNickOrEmail(nick: string, email: string) {
-    const user = await this.usersRepository.findByNickOrEmail(nick, email);
-    return user;
+  findUserWithPasswordByNickOrEmail(nick: string, email: string) {
+    return this.usersRepository.findByNickOrEmail(nick, email);
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {

@@ -25,7 +25,7 @@ export class AuthService {
 
   async signUp(signUpDto: SignUpDto): Promise<OutputUserDto> {
     const { nick, email, password } = signUpDto;
-    const user = await this.usersService.findByNickOrEmail(nick, email);
+    const user = await this.usersService.findUserWithPasswordByNickOrEmail(nick, email);
 
     const words: string[] = [];
     if (!!user) {
@@ -48,7 +48,7 @@ export class AuthService {
   async signIn(signInDto: SignInDto) {
     const { email, password } = signInDto;
 
-    const user = await this.usersService.findByEmail(email);
+    const user = await this.usersService.findUserWithPasswordByEmail(email);
     if (!user) {
       throw new UnauthorizedException('Email or password is not valid');
     }
