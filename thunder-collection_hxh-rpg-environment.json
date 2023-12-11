@@ -1,0 +1,312 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "hxh-rpg-environment",
+    "dateExported": "2023-12-11T07:09:48.847Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "12867ffb-02a9-4297-b795-2ede15b697e5",
+            "name": "auth",
+            "containerId": "",
+            "created": "2023-12-08T01:29:26.432Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "1e8c0d02-668c-4287-9cdc-f9cfda5468f6",
+            "name": "users",
+            "containerId": "",
+            "created": "2023-12-08T01:30:05.337Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "f24e5cf5-d7d5-42e5-9293-9ee253e7167c",
+            "name": "characters",
+            "containerId": "",
+            "created": "2023-12-09T17:17:05.651Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "52708a40-9adf-40b8-a07b-d37011d4e1e1",
+            "name": "profile",
+            "containerId": "",
+            "created": "2023-12-10T18:10:33.864Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "5abb58cb-2153-4785-b726-46f2b80c2264",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "12867ffb-02a9-4297-b795-2ede15b697e5",
+            "name": "create user",
+            "url": "http://localhost:3000/auth/sign-up",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-08T00:09:35.559Z",
+            "modified": "2023-12-10T04:49:33.592Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nick\": \"player test\",\n  \"email\": \"ptest@mail.com\",\n  \"password\": \"123\",\n  \"role\": \"PLAYER\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0ff762d5-8857-4bdf-aa93-6fad985a6be5",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "52708a40-9adf-40b8-a07b-d37011d4e1e1",
+            "name": "create profile",
+            "url": "http://localhost:3000/profiles/802d43dc-998c-4f02-82c4-8232d9db4bb7",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-09T19:17:39.919Z",
+            "modified": "2023-12-10T18:11:25.949Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"briefDescription\": \"string\",\n  \"birthday\": \"1999-01-01\",\n  \"avatarUrl\": \"string\",\n  \"backgroundImgUrl\": \"string\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ecf20594-6e09-4be5-bd27-9042550d7223",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "12867ffb-02a9-4297-b795-2ede15b697e5",
+            "name": "login",
+            "url": "http://localhost:3000/auth/sign-in",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-12-08T01:02:44.133Z",
+            "modified": "2023-12-10T04:51:30.910Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"ptest@mail.com\",\n  \"password\": \"123\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d5e09224-eb83-4f1e-8c42-44d30259645f",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "52708a40-9adf-40b8-a07b-d37011d4e1e1",
+            "name": "get profile",
+            "url": "http://localhost:3000/profiles/8bf2f1c8-8e71-4b3e-abc5-0220261aaf9e",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-12-09T22:48:27.589Z",
+            "modified": "2023-12-10T16:42:21.522Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e5d248c0-83ef-49e8-927e-11ba49f97960",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "12867ffb-02a9-4297-b795-2ede15b697e5",
+            "name": "health",
+            "url": "http://localhost:3000/health",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-12-08T00:03:48.731Z",
+            "modified": "2023-12-08T00:05:32.946Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2bbbfe2c-7fea-49a7-afef-31c5aa6f5dc6",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "52708a40-9adf-40b8-a07b-d37011d4e1e1",
+            "name": "get all profiles",
+            "url": "http://localhost:3000/profiles/",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-12-10T16:54:55.212Z",
+            "modified": "2023-12-10T16:55:43.248Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "333d26ae-4aba-421f-8c72-f68b72abe742",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "1e8c0d02-668c-4287-9cdc-f9cfda5468f6",
+            "name": "get user by id",
+            "url": "http://localhost:3000/users/profiles",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-12-08T01:30:16.998Z",
+            "modified": "2023-12-09T23:45:39.731Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{playerToken}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ed219c2c-8013-4e4d-96fc-7c8551b90de9",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "1e8c0d02-668c-4287-9cdc-f9cfda5468f6",
+            "name": "get users",
+            "url": "http://localhost:3000/users",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-12-08T01:50:55.649Z",
+            "modified": "2023-12-09T23:31:06.935Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{playerToken}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3eb6e23b-7d55-4689-8fbe-71f78baa8ae3",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "1e8c0d02-668c-4287-9cdc-f9cfda5468f6",
+            "name": "delete user",
+            "url": "http://localhost:3000/users/1ecabd3c-3834-45c3-acef-87fa27963dc1",
+            "method": "DELETE",
+            "sortNum": 70000,
+            "created": "2023-12-08T01:59:24.769Z",
+            "modified": "2023-12-08T02:00:54.089Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "32bd7de2-a906-46d8-99bd-4ec16474d4a9",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "f24e5cf5-d7d5-42e5-9293-9ee253e7167c",
+            "name": "create char",
+            "url": "http://localhost:3000/characters",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2023-12-09T17:17:12.648Z",
+            "modified": "2023-12-10T18:12:44.928Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{playerToken}}"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nick\": \"6ctest\",\n  \"name\": \"c test name\",\n  \"description\": \"olw\",\n  \"birthday\": \"1999-01-01\",\n  \"avatarUrl\": \"https://casanaturamusical.com.br/wp-content/uploads/2023/01/DON-L-E-BANDA_site-miniatura.jpg\",\n  \"backgroundImgUrl\": \"https://casanaturamusical.com.br/wp-content/uploads/2023/01/DON-L-E-BANDA_site-capa.jpg\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "05e38d76-1b6d-4d31-a50a-72f5944b63d1",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "f24e5cf5-d7d5-42e5-9293-9ee253e7167c",
+            "name": "find all",
+            "url": "http://localhost:3000/characters",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-12-09T17:42:35.442Z",
+            "modified": "2023-12-09T17:46:26.958Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "08882532-df63-45d3-95c1-dc59ccefba90",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "f24e5cf5-d7d5-42e5-9293-9ee253e7167c",
+            "name": "find one",
+            "url": "http://localhost:3000/characters/802d43dc-998c-4f02-82c4-8232d9db4bb7",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2023-12-10T00:29:27.141Z",
+            "modified": "2023-12-10T05:57:43.607Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{playerToken}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "aae7da5f-4e7c-4a87-8757-aa8b57d4f479",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "f24e5cf5-d7d5-42e5-9293-9ee253e7167c",
+            "name": "find all with profiles",
+            "url": "http://localhost:3000/characters/profiles",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2023-12-10T00:35:49.365Z",
+            "modified": "2023-12-10T00:37:09.122Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "42189bb6-0622-4d63-a0d9-533432802653",
+            "colId": "0c21ac24-26d7-4f46-b942-b3c296140332",
+            "containerId": "f24e5cf5-d7d5-42e5-9293-9ee253e7167c",
+            "name": "attribute test",
+            "url": "http://localhost:3000/characters/75cf14df-a132-4a6d-a3e2-c569228c5883/attribute-test",
+            "method": "GET",
+            "sortNum": 150000,
+            "created": "2023-12-10T18:02:23.041Z",
+            "modified": "2023-12-10T18:13:10.655Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{playerToken}}"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "envId": "9afc9f7d-676e-4807-821e-ed0c2f820cba"
+    }
+}
