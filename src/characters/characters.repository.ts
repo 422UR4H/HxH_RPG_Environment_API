@@ -2,13 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { UpdateCharacterDto } from './dto/update-character.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { Character } from './entities/character.entity';
+import { Profile, Character as CharacterType } from '@prisma/client';
+
+type CharacterWithProfile = CharacterType & {profile: Profile}
 
 @Injectable()
 export class CharactersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  // TODO: type this
-  create(character: Character) {
+  create(character: Character): Promise<[CharacterType, Profile]> {
     const {
       id,
       userId,
@@ -38,22 +40,22 @@ export class CharactersRepository {
     return this.prisma.$transaction([newCharacter, profile]);
   }
 
-  findAll() {
+  findAll(): Promise<CharacterType[]> {
     return this.prisma.character.findMany();
   }
 
-  findAllWithProfile() {
+  findAllWithProfile(): Promise<CharacterWithProfile[]> {
     return this.prisma.character.findMany({ include: { profile: true } });
   }
 
-  findOne(id: string) {
+  findOne(id: string): Promise<CharacterWithProfile> {
     return this.prisma.character.findUnique({
       where: { id },
       include: { profile: true },
     });
   }
 
-  findByNick(nick: string) {
+  findByNick(nick: string): Promise<CharacterType> {
     return this.prisma.character.findUnique({ where: { nick } });
   }
 
