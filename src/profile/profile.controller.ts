@@ -10,10 +10,10 @@ import {
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { AuthGuard } from '../../src/guards/auth.guard';
-import { AdminGuard } from '../../src/guards/admin.guard';
+import { AuthGuard } from '../guards/auth.guard';
+import { AdminGuard } from '../guards/admin.guard';
 import { User as UserType } from '@prisma/client';
-import { User } from '../../src/decorators/user.decorator';
+import { User } from '../decorators/user.decorator';
 
 @Controller('profiles')
 export class ProfileController {

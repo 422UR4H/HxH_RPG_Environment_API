@@ -4,12 +4,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { SignUpDto } from './dto/sign-up.dto';
-import { UsersService } from '../../src/users/users.service';
+import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { User } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 import { SignInDto } from './dto/sign-in.dto';
-import { OutputUserDto } from '../../src/users/dto/output-user.dto';
+import { OutputUserDto } from '../users/dto/output-user.dto';
 
 // const EXPIRATION_TIME = '7 days';
 const SALT = 10;

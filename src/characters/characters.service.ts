@@ -11,7 +11,6 @@ import { UpdateCharacterDto } from './dto/update-character.dto';
 import { Character } from './entities/character.entity';
 import { CharactersRepository } from './characters.repository';
 import { Role } from '@prisma/client';
-import { Character as CharacterType } from '@prisma/client';
 import { OutputCharacterDto } from './dto/output-character.dto';
 import ICharacter from './entities/character.interface';
 

@@ -11,9 +11,9 @@ import {
 import { CharactersService } from './characters.service';
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { UpdateCharacterDto } from './dto/update-character.dto';
-import { AuthGuard } from '../../src/guards/auth.guard';
-import { AdminGuard } from '../../src/guards/admin.guard';
-import { User } from '../../src/decorators/user.decorator';
+import { AuthGuard } from '../guards/auth.guard';
+import { AdminGuard } from '../guards/admin.guard';
+import { User } from '../decorators/user.decorator';
 import { User as UserType } from '@prisma/client';
 
 @Controller('characters')

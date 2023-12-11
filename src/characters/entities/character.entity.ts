@@ -1,6 +1,6 @@
-import IProfile from '../../../src/profile/entities/profile.interface';
+import IProfile from '../../profile/entities/profile.interface';
 import ICharacter from './character.interface';
-import { Dice } from '../../../src/domain/dice/dice';
+import { Dice } from '../../domain/dice/dice';
 
 export class Character implements ICharacter {
   private _id: string;
