@@ -3,14 +3,13 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersRepository } from './users.repository';
 import { OutputUserDto } from './dto/output-user.dto';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async create(createUserDto: CreateUserDto) {
-    // const { nick, email, password, role } = createUserDto;
-    // const user = new User(nick, email, password, role);
+  async create(createUserDto: CreateUserDto): Promise<OutputUserDto> {
     const user = await this.usersRepository.create(createUserDto);
     return new OutputUserDto(user);
   }
@@ -35,11 +34,14 @@ export class UsersService {
     return new OutputUserDto(result);
   }
 
-  findUserWithPasswordByEmail(email: string) {
+  findUserWithPasswordByEmail(email: string): Promise<User> {
     return this.usersRepository.findByEmail(email);
   }
 
-  findUserWithPasswordByNickOrEmail(nick: string, email: string) {
+  findUserWithPasswordByNickOrEmail(
+    nick: string,
+    email: string,
+  ): Promise<User> {
     return this.usersRepository.findByNickOrEmail(nick, email);
   }
 

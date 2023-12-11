@@ -2,12 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import IProfile from './entities/profile.interface';
+import { Profile } from '@prisma/client';
 
 @Injectable()
 export class ProfileRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createProfileDto: IProfile, userId: string) {
+  create(createProfileDto: IProfile, userId: string): Promise<Profile> {
     return this.prisma.profile.create({
       data: {
         birthday: createProfileDto.birthday,
@@ -22,16 +23,16 @@ export class ProfileRepository {
     });
   }
 
-  findAll() {
+  findAll(): Promise<Profile[]> {
     // TODO: pagination this
     return this.prisma.profile.findMany();
   }
 
-  findOne(id: string) {
+  findOne(id: string): Promise<Profile> {
     return this.prisma.profile.findUnique({ where: { id } });
   }
 
-  findByUserId(userId: string) {
+  findByUserId(userId: string): Promise<Profile> {
     return this.prisma.profile.findUnique({ where: { userId } });
   }
 

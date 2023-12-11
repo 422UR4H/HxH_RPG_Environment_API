@@ -4,7 +4,6 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-// import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { UsersService } from '../users/users.service';
 
@@ -23,7 +22,6 @@ export class AuthGuard implements CanActivate {
       const data = this.authService.checkToken(
         authorization.split(' ')[1] ?? '',
       );
-      // .split(' '[1]);
       const user = await this.usersService.findOne(data.sub);
       request.user = user;
     } catch (err) {

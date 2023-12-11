@@ -20,10 +20,8 @@ export class CreateUserDto {
   email: string;
 
   @IsStrongPassword({
-    // minLength: 8,
-    minLength: 3,
-    // minLowercase: 1,
-    minLowercase: 0,
+    minLength: 8,
+    minLowercase: 1,
     minUppercase: 0,
     minNumbers: 0,
     minSymbols: 0,
@@ -33,7 +31,6 @@ export class CreateUserDto {
   password: string;
 
   @IsEnum(Role)
-  // @IsString()
   @IsNotEmpty()
   role: Role;
 }

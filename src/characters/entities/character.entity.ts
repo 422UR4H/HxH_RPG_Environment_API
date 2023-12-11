@@ -85,5 +85,5 @@ export class Character implements ICharacter {
 
   attributeTest(): number {
     return Dice.roll(20);
-  };
+  }
 }

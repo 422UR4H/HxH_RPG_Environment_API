@@ -52,7 +52,6 @@ export class CharactersController {
   attributeTest(@Param('id') id: string) {
     return this.charactersService.attributeTest(id);
   }
-  // @Param('dice') dice: number
 
   @Patch(':id')
   @UseGuards(AuthGuard)

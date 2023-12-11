@@ -9,6 +9,7 @@ import {
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { UpdateCharacterDto } from './dto/update-character.dto';
 import { Character } from './entities/character.entity';
+import { Character as CharacterType } from '@prisma/client';
 import { CharactersRepository } from './characters.repository';
 import { Role } from '@prisma/client';
 import { OutputCharacterDto } from './dto/output-character.dto';
@@ -18,48 +19,45 @@ import ICharacter from './entities/character.interface';
 export class CharactersService {
   constructor(private readonly charactersRepository: CharactersRepository) {}
 
-  async create(createCharacterDto: CreateCharacterDto, userId: string) {
-    const {
-      nick,
-      name,
-      description,
-      briefDescription,
-      birthday,
-      avatarUrl,
-      backgroundImgUrl,
-    } = createCharacterDto;
-
+  async create(
+    createCharacterDto: CreateCharacterDto,
+    userId: string,
+  ): Promise<OutputCharacterDto> {
+    const { nick, birthday } = createCharacterDto;
     const result = await this.charactersRepository.findByNick(nick);
     if (!!result) throw new ConflictException('Nick already in use');
 
     const characterId = uuid();
     const formattedBirthday = new Date(birthday);
-
     const character = new Character(
       userId,
       nick,
-      name,
-      description,
-      briefDescription,
+      createCharacterDto.name,
+      createCharacterDto.description,
+      createCharacterDto.briefDescription,
       formattedBirthday,
-      avatarUrl,
-      backgroundImgUrl,
+      createCharacterDto.avatarUrl,
+      createCharacterDto.backgroundImgUrl,
       characterId,
     );
     const [user, profile] = await this.charactersRepository.create(character);
     return new OutputCharacterDto(user as ICharacter, profile);
   }
 
-  findAll() {
+  findAll(): Promise<CharacterType[]> {
     return this.charactersRepository.findAll();
   }
 
-  async findAllWithProfile() {
+  async findAllWithProfile(): Promise<OutputCharacterDto[]> {
     const result = await this.charactersRepository.findAllWithProfile();
     return result.map((char) => new OutputCharacterDto(char));
   }
 
-  async findOne(characterId: string, userId: string, role: Role) {
+  async findOne(
+    characterId: string,
+    userId: string,
+    role: Role,
+  ): Promise<OutputCharacterDto> {
     const character = await this.charactersRepository.findOne(characterId);
     if (!character) throw new NotFoundException('Character not found');
 
@@ -95,7 +93,11 @@ export class CharactersService {
     return `This action removes a #${id} character`;
   }
 
-  private checkRole(character: OutputCharacterDto, userId: string, role: Role) {
+  private checkRole(
+    character: OutputCharacterDto,
+    userId: string,
+    role: Role,
+  ): OutputCharacterDto {
     switch (role) {
       case Role.ADMIN:
         return character;

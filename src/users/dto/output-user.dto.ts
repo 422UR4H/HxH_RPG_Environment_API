@@ -11,7 +11,7 @@ export class OutputUserDto {
   updated_at: Date;
   profile?: IProfile;
 
-  constructor(user: IUser /*, profile?: IProfile*/) {
+  constructor(user: IUser) {
     this.id = user.id;
     this.nick = user.nick;
     this.email = user.email;
@@ -21,6 +21,5 @@ export class OutputUserDto {
     if (!!user.profile) {
       this.profile = user.profile;
     }
-    // this.profile = profile;
   }
 }

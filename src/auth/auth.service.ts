@@ -10,8 +10,9 @@ import { User } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 import { SignInDto } from './dto/sign-in.dto';
 import { OutputUserDto } from '../users/dto/output-user.dto';
+import { UpdateAuthDto } from './dto/update-auth.dto';
 
-// const EXPIRATION_TIME = '7 days';
+const EXPIRATION_TIME = '7 days';
 const SALT = 10;
 const ISSUER = 'hxh-environment';
 const AUDIENCE = 'users';
@@ -25,7 +26,10 @@ export class AuthService {
 
   async signUp(signUpDto: SignUpDto): Promise<OutputUserDto> {
     const { nick, email, password } = signUpDto;
-    const user = await this.usersService.findUserWithPasswordByNickOrEmail(nick, email);
+    const user = await this.usersService.findUserWithPasswordByNickOrEmail(
+      nick,
+      email,
+    );
 
     const words: string[] = [];
     if (!!user) {
@@ -64,7 +68,7 @@ export class AuthService {
     const token = this.jwtService.sign(
       { nick, role },
       {
-        // expiresIn: EXPIRATION_TIME,
+        expiresIn: EXPIRATION_TIME,
         subject: id,
         issuer: ISSUER,
         audience: AUDIENCE,
@@ -81,11 +85,11 @@ export class AuthService {
     return data;
   }
 
-  // update(id: number, updateAuthDto: UpdateAuthDto) {
-  //   return `This action updates a #${id} auth`;
-  // }
+  update(id: number, updateAuthDto: UpdateAuthDto) {
+    return `This action updates a #${id} auth`;
+  }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} auth`;
-  // }
+  remove(id: number) {
+    return `This action removes a #${id} auth`;
+  }
 }

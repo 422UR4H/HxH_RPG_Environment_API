@@ -15,26 +15,20 @@ import OutputProfileDto from './dto/output-profile.dto';
 export class ProfileService {
   constructor(private readonly profilesRepository: ProfileRepository) {}
 
-  async create(createProfileDto: CreateProfileDto, userId: string) {
+  async create(
+    createProfileDto: CreateProfileDto,
+    userId: string,
+  ): Promise<OutputProfileDto> {
     const profile = await this.profilesRepository.findByUserId(userId);
     if (!!profile) throw new ConflictException('Profile already exists');
 
-    const {
-      name,
-      birthday,
-      description,
-      briefDescription,
-      avatarUrl,
-      backgroundImgUrl,
-    } = createProfileDto;
-
     const newProfile = new Profile(
-      name,
-      description,
-      briefDescription,
-      new Date(birthday),
-      avatarUrl,
-      backgroundImgUrl,
+      createProfileDto.name,
+      createProfileDto.description,
+      createProfileDto.briefDescription,
+      new Date(createProfileDto.birthday),
+      createProfileDto.avatarUrl,
+      createProfileDto.backgroundImgUrl,
     );
     const result = await this.profilesRepository.create(newProfile, userId);
     return new OutputProfileDto(result);

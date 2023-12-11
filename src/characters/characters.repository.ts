@@ -4,7 +4,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { Character } from './entities/character.entity';
 import { Profile, Character as CharacterType } from '@prisma/client';
 
-type CharacterWithProfile = CharacterType & {profile: Profile}
+type CharacterWithProfile = CharacterType & { profile: Profile };
 
 @Injectable()
 export class CharactersRepository {
