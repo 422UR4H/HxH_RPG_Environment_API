@@ -8,7 +8,7 @@ This is an ever-expanding Node.js Web Service created to foster a Hunter X Hunte
 
 ## Demo
 
-### Deploy API link: https://betify-api.onrender.com
+### Deploy API link: https://hxh-rpg-environment-api.onrender.com/
 
 <br />
 
